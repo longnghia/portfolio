@@ -1,0 +1,52 @@
+name: Build Next.js App
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+          cache: 'npm'
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            ~/.cache
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}-${{ github.ref }}
+          restore-keys: |
+            ${{ runner.os }}-npm-${{ github.ref }}
+            ${{ runner.os }}-npm-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the application
+        run: npm run build
