@@ -27,7 +27,7 @@ export default function Home() {
           </a>
         </div>
         <a
-          href="#contact"
+          href="mailto:longnghia2.00@gmail.com"
           className="px-4 py-2 text-white transition-colors bg-purple-500 rounded-full hover:bg-purple-600"
         >
           Contact
