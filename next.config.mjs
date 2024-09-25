@@ -4,9 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "octodex.github.com",
-        port: "",
-        pathname: "/images/**",
+        hostname: "**",
       },
     ],
   },
